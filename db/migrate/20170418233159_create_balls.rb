@@ -3,6 +3,7 @@ class CreateBalls < ActiveRecord::Migration
     create_table :balls do |t|
       t.string :color, null: false
 
+      t.belongs_to :bucket
       t.timestamps
     end
   end

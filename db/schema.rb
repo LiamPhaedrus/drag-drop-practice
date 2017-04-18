@@ -18,6 +18,7 @@ ActiveRecord::Schema.define(version: 20170418233159) do
 
   create_table "balls", force: :cascade do |t|
     t.string   "color",      null: false
+    t.integer  "bucket_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
