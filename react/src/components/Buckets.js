@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 
-
 class Buckets extends Component {
   constructor(props) {
     super(props);
@@ -13,13 +12,12 @@ class Buckets extends Component {
     fetch('/api/v1/buckets')
       .then(response => response.json())
       .then(responseData => {
-        console.log(responseData)
-        // this.setState({ buckets: [...this.state.buckets, ...responseData.buckets] })
+        this.setState({ buckets: [...this.state.buckets, ...responseData] })
       })
   }
 
   render() {
-
+    console.log(this.state.buckets)
     return(
       <div className="bucket-page">
         <h1>Hello there!</h1>
