@@ -9,5 +9,4 @@ class Api::V1::BucketsController < ApplicationController
     bucket = Bucket.find(params[:id])
     render json: thing
   end
-
 end
