@@ -5,23 +5,23 @@ class Buckets extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      
+      buckets: []
     }
   }
 
   componentDidMount() {
-    let bucket = this.props.params.id;
-    fetch(`/api/v1/articles/${articleId}`)
+    fetch('/api/v1/buckets')
       .then(response => response.json())
       .then(responseData => {
-        this.setState({ article: responseData })
+        this.setState({ buckets: [...this.state.buckets, ...responseData.buckets] })
       })
   }
 
   render() {
+
     return(
       <div className="bucket-page">
-
+        <h1>Hello there!</h1>
       </div>
     )
   }

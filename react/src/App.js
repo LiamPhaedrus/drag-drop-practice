@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, IndexRoute, Router, browserHistory } from 'react-router';
-import Buckets from './components/Buckets'
+import Buckets from './components/Buckets';
 
 const App = (props) => {
   return (
