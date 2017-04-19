@@ -13,7 +13,8 @@ class Buckets extends Component {
     fetch('/api/v1/buckets')
       .then(response => response.json())
       .then(responseData => {
-        this.setState({ buckets: [...this.state.buckets, ...responseData.buckets] })
+        console.log(responseData)
+        // this.setState({ buckets: [...this.state.buckets, ...responseData.buckets] })
       })
   }
 
