@@ -1,12 +1,12 @@
 import React from 'react';
 import { Route, IndexRoute, Router, browserHistory } from 'react-router';
-import Buckets from './components/Buckets';
+import MainContainer from './components/MainContainer';
 
 const App = (props) => {
   return (
     <Router history={browserHistory}>
       <Route path='/' >
-        <IndexRoute component={Buckets} />
+        <IndexRoute component={MainContainer} />
       </Route>
     </Router>
   );

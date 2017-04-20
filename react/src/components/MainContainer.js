@@ -2,13 +2,18 @@ import React, { Component } from 'react';
 import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 import Bag from './Bag';
+import ChessSquare from './Bucket';
+import Knight from './Ball';
 
-class Buckets extends Component {
+class MainContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      buckets: []
+      buckets: [],
+      things: []
     }
+
+    this.handleAdd = this.handleAdd.bind(this)
   }
 
   componentDidMount() {
@@ -17,6 +22,10 @@ class Buckets extends Component {
       .then(responseData => {
         this.setState({ buckets: [...this.state.buckets, ...responseData] })
       })
+  }
+
+  handleAdd(thing) {
+    this.setState({ things: this.state.things.concat([thing]) })
   }
 
   render() {
@@ -33,7 +42,11 @@ class Buckets extends Component {
     })
     return(
       <div className="bucket-page">
-        {buckets}
+        <ChessSquare
+          key="C1"
+          handleAdd={this.handleAdd}
+          things={this.state.things}
+        />
         <div className="bag">
           <Bag />
         </div>
@@ -42,4 +55,4 @@ class Buckets extends Component {
   }
 }
 
-export default Buckets;
+export default DragDropContext(HTML5Backend)(MainContainer);

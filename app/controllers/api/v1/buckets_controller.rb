@@ -7,6 +7,6 @@ class Api::V1::BucketsController < ApplicationController
 
   def show
     bucket = Bucket.find(params[:id])
-    render json: thing
+    render json: bucket
   end
 end

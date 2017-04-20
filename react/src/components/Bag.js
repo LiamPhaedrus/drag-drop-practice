@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
-import { DragDropContext } from 'react-dnd';
-import HTML5Backend from 'react-dnd-html5-backend';
 import Knight from './Ball';
 
 class Bag extends Component {
   render() {
     return (
       <div>
-        <Knight />
+        <Knight
+          name={'Bob'}
+        />
       </div>
     );
   }
@@ -19,4 +19,4 @@ class Bag extends Component {
 //   ).isRequired
 // };
 
-export default DragDropContext(HTML5Backend)(Bag);
+export default Bag;
