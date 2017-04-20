@@ -8,7 +8,7 @@ const ItemTypes = {
 
 const knightSource = {
   beginDrag(props) {
-    return {};
+    return {name: props.name};
   }
 };
 
