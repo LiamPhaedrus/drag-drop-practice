@@ -47,11 +47,12 @@ const chessSquareTarget = {
       // target already handled drop
       return;
     }
-    props.handleAdd('Added')
+
+
 
     // Obtain the dragged item
     const item = monitor.getItem();
-
+    props.handleAdd(item.name)
     // You can do something with it
     // ChessActions.movePiece(item.fromPosition, props.position);
     // this.props.handleAdd('Added')
@@ -102,8 +103,8 @@ class ChessSquare extends Component {
     // These props are injected by React DnD,
     // as defined by your `collect` function above:
     const { isOver, canDrop, connectDropTarget, handleAdd } = this.props;
-    let things = this.props.things.map(thing=> {
-      return <div>{thing}</div>
+    let things = this.props.things.map((thing, index)=> {
+      return <div key={'thing' + index}>{thing}</div>
     })
     return connectDropTarget(
       <div className='bucket'>

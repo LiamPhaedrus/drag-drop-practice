@@ -7,6 +7,11 @@ class Bag extends Component {
       <div>
         <Knight
           name={'Bob'}
+          key={'Bob'}
+        />
+        <Knight
+          name={'Joe'}
+          key={'Joe'}
         />
       </div>
     );
