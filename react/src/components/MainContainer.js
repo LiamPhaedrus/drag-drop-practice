@@ -2,14 +2,15 @@ import React, { Component } from 'react';
 import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 import Bag from './Bag';
-import ChessSquare from './Bucket';
-import Knight from './Ball';
-
+import Bucket from './Bucket';
+import Ball from './Ball';
+// need to change thing into an actual location handler. so that bag only inherits unplaced balls and each bucket gets any balls that have an existing bucket_id
 class MainContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
       buckets: [],
+      balls: [],
       things: []
     }
 
@@ -19,36 +20,41 @@ class MainContainer extends Component {
   componentDidMount() {
     fetch('/api/v1/buckets')
       .then(response => response.json())
-      .then(responseData => {
-        this.setState({ buckets: [...this.state.buckets, ...responseData] })
+      .then(data => {
+        this.setState({ buckets: [...this.state.buckets, ...data] })
       })
+    fetch('/api/v1/balls')
+      .then(response => response.json())
+      .then(data => {
+        console.log(data)
+        this.setState({ balls: [...this.state.balls, ...data] })
+      })
+
   }
 
-  handleAdd(thing) {
-    this.setState({ things: this.state.things.concat([thing]) })
+  handleAdd(arg) {
+    this.setState({ things: this.state.things.concat([arg]) })
   }
 
   render() {
     let buckets = this.state.buckets.map(bucket=> {
       return(
-        <div
+        <Bucket
           key={"bucket" + bucket.id}
           id={bucket.id}
-          className="bucket"
-        >
-        A Bucket
-        </div>
-      )
-    })
-    return(
-      <div className="bucket-page">
-        <ChessSquare
-          key="C1"
           handleAdd={this.handleAdd}
           things={this.state.things}
         />
+      )
+    })
+
+    return(
+      <div className="main-container">
+        {buckets}
         <div className="bag">
-          <Bag />
+          <Bag
+            balls={this.state.balls}
+          />
         </div>
       </div>
     )

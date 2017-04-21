@@ -7,14 +7,14 @@ import { DropTarget } from 'react-dnd';
 // You want to keep types in a separate file with
 // the rest of your app's constants.
 const Types = {
-  CHESSPIECE: 'knight'
+  PIECE: 'ball'
 };
 
 /**
  * Specifies the drop target contract.
  * All methods are optional.
  */
-const chessSquareTarget = {
+const bucketTarget = {
   canDrop(props, monitor) {
     // You can disallow drop based on props or item
     const item = monitor.getItem();
@@ -80,7 +80,7 @@ function collect(connect, monitor) {
   };
 }
 
-class ChessSquare extends Component {
+class Bucket extends Component {
   componentWillReceiveProps(nextProps) {
     if (!this.props.isOver && nextProps.isOver) {
       // You can use this as enter handler
@@ -114,4 +114,4 @@ class ChessSquare extends Component {
   }
 }
 
-export default DropTarget(Types.CHESSPIECE, chessSquareTarget, collect)(ChessSquare);
+export default DropTarget(Types.PIECE, bucketTarget, collect)(Bucket);
