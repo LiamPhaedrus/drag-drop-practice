@@ -8,7 +8,7 @@ const ItemTypes = {
 
 const ballSource = {
   beginDrag(props) {
-    return {name: props.name};
+    return {name: props.name, id: props.id};
   }
 };
 
@@ -21,13 +21,14 @@ function collect(connect, monitor) {
 
 class Ball extends Component {
   render() {
-    const { connectDragSource, isDragging } = this.props;
+    const { connectDragSource, isDragging, name, color } = this.props;
     return connectDragSource(
       <div style={{
         opacity: isDragging ? 0.5 : 1,
         fontSize: 25,
         fontWeight: 'bold',
-        cursor: 'move'
+        cursor: 'move',
+        color: color
       }}>
         ◯
       </div>

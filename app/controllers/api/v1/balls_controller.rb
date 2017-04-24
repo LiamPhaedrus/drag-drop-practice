@@ -10,6 +10,23 @@ class Api::V1::BallsController < ApplicationController
     render json: ball
   end
 
+  def update
+    ball = Ball.find(update_params['id'])
+    if ball.update!(bucket_id: params['bucket_id'])
+      render json: {
+        status: 201,
+        message: ("successfully moved a ball"),
+        balls: partial_balls,
+        buckets: buckets_info
+      }.to_json
+    else
+      render json: {
+        status: 500,
+        error: ball.errors
+      }.to_json
+    end
+  end
+
   private
 
   def partial_balls
@@ -23,8 +40,21 @@ class Api::V1::BallsController < ApplicationController
     end
     balls
   end
-end
 
-# data.forEach((ball)=> {
-#   console.log(ball)
-# })
+  def update_params
+    params.require(:ball).permit(:id, :bucket_id)
+  end
+
+  def buckets_info
+    buckets = []
+    Bucket.all.each do |bucket|
+      thing = {}
+      thing[:id] = bucket.id
+      thing[:name] = bucket.name
+      thing[:size] = bucket.size
+      thing[:balls] = bucket.balls.pluck(:id)
+      buckets << thing
+    end
+    buckets
+  end
+end

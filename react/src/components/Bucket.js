@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { findDOMNode } from 'react-dom';
 import { DropTarget } from 'react-dnd';
+import Ball from './Ball';
 
 // Drag sources and drop targets only interact
 // if they have the same string type.
@@ -47,12 +48,11 @@ const bucketTarget = {
       // target already handled drop
       return;
     }
-
-
-
     // Obtain the dragged item
     const item = monitor.getItem();
-    props.handleAdd(item.name)
+    props.handleAdd(item, component.props.id)
+    // This should add the bucket_id
+
     // You can do something with it
     // ChessActions.movePiece(item.fromPosition, props.position);
     // this.props.handleAdd('Added')
@@ -106,9 +106,19 @@ class Bucket extends Component {
     let things = this.props.things.map((thing, index)=> {
       return <div key={'thing' + index}>{thing}</div>
     })
+    let balls = this.props.balls.map(ball=> {
+      return(
+        <Ball
+          key={"ball" + ball.id}
+          id={ball.id}
+          name={"ball" + ball.id}
+          color={ball.color}
+        />
+      )
+    })
     return connectDropTarget(
       <div className='bucket'>
-        {things}
+        {balls}
       </div>
     );
   }

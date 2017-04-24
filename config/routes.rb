@@ -3,8 +3,8 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      resources :buckets, only: [:index, :show]
-      resources :balls, only: [:index, :show]
+      resources :buckets, only: [:index, :show, :update]
+      resources :balls, only: [:index, :show, :update]
     end
   end
 end

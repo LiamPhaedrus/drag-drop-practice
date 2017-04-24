@@ -9,6 +9,7 @@ class Bag extends Component {
           key={"ball" + ball.id}
           id={ball.id}
           name={"ball" + ball.id}
+          color={ball.color}
         />
       )
     })
