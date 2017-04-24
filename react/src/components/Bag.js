@@ -1,18 +1,21 @@
 import React, { Component } from 'react';
-import Knight from './Ball';
+import Ball from './Ball';
 
 class Bag extends Component {
   render() {
+    let balls = this.props.balls.map(ball=> {
+      return(
+        <Ball
+          key={"ball" + ball.id}
+          id={ball.id}
+          name={"ball" + ball.id}
+          color={ball.color}
+        />
+      )
+    })
     return (
       <div>
-        <Knight
-          name={'Bob'}
-          key={'Bob'}
-        />
-        <Knight
-          name={'Joe'}
-          key={'Joe'}
-        />
+        {balls}
       </div>
     );
   }

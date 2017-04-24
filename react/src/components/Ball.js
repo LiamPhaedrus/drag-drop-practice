@@ -3,12 +3,12 @@ import { DragSource } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 
 const ItemTypes = {
-  KNIGHT: 'knight'
+  BALL: 'ball'
 }
 
-const knightSource = {
+const ballSource = {
   beginDrag(props) {
-    return {name: props.name};
+    return {name: props.name, id: props.id};
   }
 };
 
@@ -19,27 +19,28 @@ function collect(connect, monitor) {
   }
 }
 
-class Knight extends Component {
+class Ball extends Component {
   render() {
-    const { connectDragSource, isDragging } = this.props;
+    const { connectDragSource, isDragging, name, color } = this.props;
     return connectDragSource(
       <div style={{
         opacity: isDragging ? 0.5 : 1,
         fontSize: 25,
         fontWeight: 'bold',
-        cursor: 'move'
+        cursor: 'move',
+        color: color
       }}>
-        ♘
+        ◯
       </div>
     );
   }
 }
 
 
-// Knight.propTypes = {
+// Ball.propTypes = {
 //   connectDragSource: PropTypes.func.isRequired,
 //   isDragging: PropTypes.bool.isRequired
 // };
 
 
-export default DragSource(ItemTypes.KNIGHT, knightSource, collect)(Knight);
+export default DragSource(ItemTypes.BALL, ballSource, collect)(Ball);

@@ -1,20 +1,21 @@
 import React, { Component } from 'react';
 import { findDOMNode } from 'react-dom';
 import { DropTarget } from 'react-dnd';
+import Ball from './Ball';
 
 // Drag sources and drop targets only interact
 // if they have the same string type.
 // You want to keep types in a separate file with
 // the rest of your app's constants.
 const Types = {
-  CHESSPIECE: 'knight'
+  PIECE: 'ball'
 };
 
 /**
  * Specifies the drop target contract.
  * All methods are optional.
  */
-const chessSquareTarget = {
+const bucketTarget = {
   canDrop(props, monitor) {
     // You can disallow drop based on props or item
     const item = monitor.getItem();
@@ -47,12 +48,11 @@ const chessSquareTarget = {
       // target already handled drop
       return;
     }
-
-
-
     // Obtain the dragged item
     const item = monitor.getItem();
-    props.handleAdd(item.name)
+    props.handleAdd(item, component.props.id)
+    // This should add the bucket_id
+
     // You can do something with it
     // ChessActions.movePiece(item.fromPosition, props.position);
     // this.props.handleAdd('Added')
@@ -80,7 +80,7 @@ function collect(connect, monitor) {
   };
 }
 
-class ChessSquare extends Component {
+class Bucket extends Component {
   componentWillReceiveProps(nextProps) {
     if (!this.props.isOver && nextProps.isOver) {
       // You can use this as enter handler
@@ -106,12 +106,22 @@ class ChessSquare extends Component {
     let things = this.props.things.map((thing, index)=> {
       return <div key={'thing' + index}>{thing}</div>
     })
+    let balls = this.props.balls.map(ball=> {
+      return(
+        <Ball
+          key={"ball" + ball.id}
+          id={ball.id}
+          name={"ball" + ball.id}
+          color={ball.color}
+        />
+      )
+    })
     return connectDropTarget(
       <div className='bucket'>
-        {things}
+        {balls}
       </div>
     );
   }
 }
 
-export default DropTarget(Types.CHESSPIECE, chessSquareTarget, collect)(ChessSquare);
+export default DropTarget(Types.PIECE, bucketTarget, collect)(Bucket);
