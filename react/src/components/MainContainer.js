@@ -68,6 +68,7 @@ class MainContainer extends Component {
 
     return(
       <div className="main-container">
+        <h1>Testing!</h1>
         {buckets}
         <div>
           <Bag
