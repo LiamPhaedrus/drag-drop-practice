@@ -103,9 +103,6 @@ class Bucket extends Component {
     // These props are injected by React DnD,
     // as defined by your `collect` function above:
     const { isOver, canDrop, connectDropTarget, handleAdd } = this.props;
-    let things = this.props.things.map((thing, index)=> {
-      return <div key={'thing' + index}>{thing}</div>
-    })
     let balls = this.props.balls.map(ball=> {
       return(
         <Ball

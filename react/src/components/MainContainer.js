@@ -10,8 +10,7 @@ class MainContainer extends Component {
     super(props);
     this.state = {
       buckets: [],
-      balls: [],
-      things: []
+      balls: []
     }
 
     this.handleAdd = this.handleAdd.bind(this)
@@ -31,7 +30,6 @@ class MainContainer extends Component {
   }
 
   handleAdd(ball, bucket) {
-    // this.setState({ things: this.state.things.concat([arg]) })
     let payload = {ball, bucket_id: bucket}
     fetch(`/api/v1/balls/${ball.id}`, {
       method: 'PATCH',
@@ -63,7 +61,6 @@ class MainContainer extends Component {
           key={"bucket" + bucket.id}
           id={bucket.id}
           handleAdd={this.handleAdd}
-          things={this.state.things}
           balls={bucketBalls}
         />
       )
@@ -71,10 +68,13 @@ class MainContainer extends Component {
 
     return(
       <div className="main-container">
+        <h1>Testing!</h1>
         {buckets}
-        <div className="bag">
+        <div>
           <Bag
             balls={unplacedBalls}
+            id={null}
+            handleAdd={this.handleAdd}
           />
         </div>
       </div>
