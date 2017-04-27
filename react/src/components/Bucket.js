@@ -25,7 +25,6 @@ const bucketTarget = {
   },
 
   hover(props, monitor, component) {
-
     // This is fired very often and lets you perform side effects
     // in response to the hover. You can't handle enter and leave
     // here—if you need them, put monitor.isOver() into collect() so you
@@ -114,7 +113,7 @@ class Bucket extends Component {
       )
     })
     return connectDropTarget(
-      <div className='bucket'>
+      <div style={{width:'100%', height:'100%'}}>
         {balls}
       </div>
     );
