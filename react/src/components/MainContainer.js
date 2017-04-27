@@ -44,8 +44,8 @@ class MainContainer extends Component {
     })
   }
 
-  handleSpotAdd(ball, spotId) {
-    let payload = {ball, bucket_id: 2, spot: spotId}
+  handleSpotAdd(ball, spotId, bucket) {
+    let payload = {ball, bucket_id: bucket, spot: spotId}
     fetch(`/api/v1/balls/${ball.id}`, {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
@@ -73,11 +73,12 @@ class MainContainer extends Component {
       }
       let bucketBalls = this.state.balls.filter(filterById)
       return(
-        <div className='bucket' key={"bucket" + bucket.id}>
-          <Bucket
-            id={bucket.id}
-            handleAdd={this.handleAdd}
+        <div key={"bucket" + bucket.id}>
+          <DropContainer
+            bucket_id={bucket.id}
+            handleAdd={this.handleSpotAdd}
             balls={bucketBalls}
+            size={bucket.size}
           />
         </div>
       )
@@ -94,10 +95,6 @@ class MainContainer extends Component {
             handleAdd={this.handleAdd}
           />
         </div>
-        <DropContainer
-          handleAdd={this.handleSpotAdd}
-          bucketBalls={[]}
-        />
       </div>
     )
   }

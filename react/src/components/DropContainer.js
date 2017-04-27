@@ -7,34 +7,35 @@ import Ball from './Ball';
 class DropContainer extends Component {
   constructor (props) {
     super(props)
+
     this.renderSpots = this.renderSpots.bind(this)
   }
 
   renderSpots (num) {
     let arr = []
     for (var i = 0; i < num; i++) {
+
+      let spotBalls = this.props.balls.filter(ball=>{
+        return ball.spot === i
+      })
+
       arr.push(
-        <div className='spot' key={"spot" + i}>
-          <Bucket
-            id={i}
-            handleAdd={this.props.handleAdd}
-            balls={this.props.bucketBalls}
-          />
-        </div>)
+        <Bucket
+          key={this.props.bucket_id + "spot" + i}
+          id={i}
+          bucket_id={this.props.bucket_id}
+          handleAdd={this.props.handleAdd}
+          balls={spotBalls}
+        />
+      )
     }
     return arr
   }
 
   render () {
-    // let spotCount = 12
-    // let spots = for (var i = 0; i < array.length; i++) {
-    //   array[i]
-    // }
-
-
     return(
       <div className='bucket'>
-        {this.renderSpots(12)}
+        {this.renderSpots(this.props.size)}
       </div>
     )
   }

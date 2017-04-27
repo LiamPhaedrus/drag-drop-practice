@@ -49,7 +49,7 @@ const bucketTarget = {
     }
     // Obtain the dragged item
     const item = monitor.getItem();
-    props.handleAdd(item, component.props.id)
+    props.handleAdd(item, component.props.id, component.props.bucket_id)
     // This should add the bucket_id
 
     // You can do something with it
@@ -113,7 +113,7 @@ class Bucket extends Component {
       )
     })
     return connectDropTarget(
-      <div style={{width:'100%', height:'100%'}}>
+      <div className="spot">
         {balls}
       </div>
     );
