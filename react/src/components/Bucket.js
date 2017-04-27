@@ -25,7 +25,6 @@ const bucketTarget = {
   },
 
   hover(props, monitor, component) {
-
     // This is fired very often and lets you perform side effects
     // in response to the hover. You can't handle enter and leave
     // here—if you need them, put monitor.isOver() into collect() so you
@@ -50,7 +49,7 @@ const bucketTarget = {
     }
     // Obtain the dragged item
     const item = monitor.getItem();
-    props.handleAdd(item, component.props.id)
+    props.handleAdd(item, component.props.id, component.props.bucket_id)
     // This should add the bucket_id
 
     // You can do something with it
@@ -114,7 +113,7 @@ class Bucket extends Component {
       )
     })
     return connectDropTarget(
-      <div className='bucket'>
+      <div className="spot">
         {balls}
       </div>
     );

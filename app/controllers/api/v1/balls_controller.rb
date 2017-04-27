@@ -12,7 +12,8 @@ class Api::V1::BallsController < ApplicationController
 
   def update
     ball = Ball.find(update_params['id'])
-    if ball.update!(bucket_id: params['bucket_id'])
+
+    if ball.update!(bucket_id: params['bucket_id'], spot: params['spot'])
       render json: {
         status: 201,
         message: ("successfully moved a ball"),
@@ -36,13 +37,14 @@ class Api::V1::BallsController < ApplicationController
       thing[:id] = a_ball.id
       thing[:color] = a_ball.color
       thing[:bucket_id] = a_ball.bucket_id
+      thing[:spot] = a_ball.spot
       balls << thing
     end
     balls
   end
 
   def update_params
-    params.require(:ball).permit(:id, :bucket_id)
+    params.require(:ball).permit(:id, :bucket_id, :spot)
   end
 
   def buckets_info

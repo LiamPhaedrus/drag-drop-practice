@@ -4,7 +4,8 @@ import HTML5Backend from 'react-dnd-html5-backend';
 import Bag from './Bag';
 import Bucket from './Bucket';
 import Ball from './Ball';
-// need to change thing into an actual location handler. so that bag only inherits unplaced balls and each bucket gets any balls that have an existing bucket_id
+import DropContainer from './DropContainer'
+
 class MainContainer extends Component {
   constructor(props) {
     super(props);
@@ -14,6 +15,7 @@ class MainContainer extends Component {
     }
 
     this.handleAdd = this.handleAdd.bind(this)
+    this.handleSpotAdd = this.handleSpotAdd.bind(this)
   }
 
   componentDidMount() {
@@ -30,7 +32,7 @@ class MainContainer extends Component {
   }
 
   handleAdd(ball, bucket) {
-    let payload = {ball, bucket_id: bucket}
+    let payload = {ball, bucket_id: bucket, spot: null}
     fetch(`/api/v1/balls/${ball.id}`, {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
@@ -38,6 +40,20 @@ class MainContainer extends Component {
     })
     .then(response => response.json())
     .then(data => {
+      this.setState({ balls: data.balls, buckets: data.buckets })
+    })
+  }
+
+  handleSpotAdd(ball, spotId, bucket) {
+    let payload = {ball, bucket_id: bucket, spot: spotId}
+    fetch(`/api/v1/balls/${ball.id}`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    })
+    .then(response => response.json())
+    .then(data => {
+      console.log(data.balls)
       this.setState({ balls: data.balls, buckets: data.buckets })
     })
   }
@@ -57,18 +73,20 @@ class MainContainer extends Component {
       }
       let bucketBalls = this.state.balls.filter(filterById)
       return(
-        <Bucket
-          key={"bucket" + bucket.id}
-          id={bucket.id}
-          handleAdd={this.handleAdd}
-          balls={bucketBalls}
-        />
+        <div key={"bucket" + bucket.id}>
+          <DropContainer
+            bucket_id={bucket.id}
+            handleAdd={this.handleSpotAdd}
+            balls={bucketBalls}
+            size={bucket.size}
+          />
+        </div>
       )
     })
 
     return(
       <div className="main-container">
-        <h1>Testing!</h1>
+        <h1>Drag and Drop</h1>
         {buckets}
         <div>
           <Bag

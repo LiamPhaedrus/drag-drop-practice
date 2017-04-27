@@ -1,10 +1,10 @@
 class BallSeeder
   def self.seed!
-    Ball.create(color: "black", bucket: Bucket.first)
-    Ball.create(color: "red", bucket: Bucket.first)
-    Ball.create(color: "green", bucket: Bucket.first)
-    Ball.create(color: "blue", bucket: Bucket.first)
-    Ball.create(color: "purple", bucket: Bucket.first)
-    Ball.create(color: "red", bucket: Bucket.first)
+    Ball.create(color: "black")
+    Ball.create(color: "red")
+    Ball.create(color: "green")
+    Ball.create(color: "blue")
+    Ball.create(color: "purple")
+    Ball.create(color: "red")
   end
 end
